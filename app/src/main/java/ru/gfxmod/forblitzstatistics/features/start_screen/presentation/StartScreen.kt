@@ -1,4 +1,4 @@
-package ru.gfxmod.forblitzstatistics.features.search_screen.presentation
+package ru.gfxmod.forblitzstatistics.features.start_screen.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

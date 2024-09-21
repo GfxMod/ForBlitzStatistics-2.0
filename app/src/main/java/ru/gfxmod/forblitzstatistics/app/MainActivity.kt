@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ru.gfxmod.forblitzstatistics.app.ui.theme.ForBlitzStatisticsTheme
-import ru.gfxmod.forblitzstatistics.features.search_screen.presentation.StartScreen
+import ru.gfxmod.forblitzstatistics.features.start_screen.presentation.StartScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
