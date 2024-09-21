@@ -2,6 +2,7 @@ package ru.gfxmod.forblitzstatistics.features.start_screen.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import ru.gfxmod.forblitzstatistics.R
 import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraLarge
 import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraSmall
@@ -35,7 +37,8 @@ import ru.gfxmod.forblitzstatistics.app.ui.theme.textLarge
 
 @Composable
 fun StartScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     Column(
         modifier
@@ -61,6 +64,9 @@ fun StartScreen(
                     color = MaterialTheme.colorScheme.surfaceContainer,
                     shape = MaterialTheme.shapes.extraLarge
                 )
+                .clickable {
+                    navController.navigate("search")
+                }
         )
     }
 }

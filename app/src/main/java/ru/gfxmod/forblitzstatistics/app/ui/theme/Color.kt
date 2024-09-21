@@ -8,3 +8,5 @@ val backgroundBottom = Color(0xFF1C202D)
 val transparentBlack = Color(0x7F000000)
 val transparentWhite = Color(0x7FFFFFFF)
 val transparentGrey = Color(0x7F7F7F7F)
+
+val lightBlue = Color(0xFFBCCEFF)

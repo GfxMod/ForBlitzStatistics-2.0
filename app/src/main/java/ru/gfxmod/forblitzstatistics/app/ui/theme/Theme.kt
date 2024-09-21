@@ -12,10 +12,12 @@ private val LightColorScheme = lightColorScheme(
     surfaceVariant = backgroundBottom,
     surfaceContainerLowest = transparentBlack,
     surfaceContainer = transparentGrey,
-    surfaceContainerHigh = transparentWhite,
+    surfaceContainerHighest = transparentWhite,
 
     onSurface = transparentWhite,
-    onSurfaceVariant = Color.White
+    onSurfaceVariant = Color.White,
+
+    primary = lightBlue,
 )
 
 private val Shapes = Shapes(
