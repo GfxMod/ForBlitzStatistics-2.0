@@ -20,7 +20,6 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,7 +32,6 @@ import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenLarge
 import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenMedium
 import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenSmall
 import ru.gfxmod.forblitzstatistics.app.ui.theme.textLarge
-import ru.gfxmod.forblitzstatistics.app.ui.theme.transparentWhite
 
 @Composable
 fun StartScreen(
@@ -42,7 +40,6 @@ fun StartScreen(
     Column(
         modifier
             .fillMaxSize()
-            .background(Color.Transparent)
             .padding(dimenMedium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -54,7 +51,7 @@ fun StartScreen(
             contentDescription = stringResource(R.string.app_name)
         )
         Spacer(
-            modifier.height(dimenExtraLarge)
+            Modifier.height(dimenExtraLarge)
         )
         Search(
             modifier = Modifier
@@ -85,13 +82,13 @@ fun Search(
                 .padding(dimenExtraSmall),
             painter = painterResource(id = R.drawable.outline_search_24),
             contentDescription = null,
-            tint = transparentWhite
+            tint = MaterialTheme.colorScheme.onSurface
         )
 
         Spacer(Modifier.width(dimenSmall))
 
         VerticalDivider(
-            color = transparentWhite
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Text(
@@ -101,8 +98,7 @@ fun Search(
                 .padding(horizontal = dimenSmall),
             textAlign = TextAlign.Center,
             fontSize = textLarge,
-            color = transparentWhite
+            color = MaterialTheme.colorScheme.onSurface
         )
-
     }
 }
