@@ -1,5 +1,6 @@
-package ru.gfxmod.forblitzstatistics.features.start_screen.presentation
+package ru.gfxmod.forblitzstatistics.features.start_screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +20,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,18 +32,26 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import ru.gfxmod.forblitzstatistics.R
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraLarge
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraSmall
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenLarge
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenMedium
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenSmall
-import ru.gfxmod.forblitzstatistics.app.ui.theme.textLarge
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraLarge
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraSmall
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenLarge
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenMedium
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenSmall
+import ru.gfxmod.forblitzstatistics.ui.theme.textLarge
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun StartScreen(
+    viewModel: StartScreenViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
+    val applicationInfo by viewModel.applicationInfo.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getApplicationData()
+    }
+
     Column(
         modifier
             .fillMaxSize()
@@ -65,6 +77,7 @@ fun StartScreen(
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .clickable {
+                    Log.d("nowDebug", "applicationInfo = $applicationInfo")
                     navController.navigate("search")
                 }
         )

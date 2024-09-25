@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ForBlitz Statistics"
 include(":app")
- 
+include(":data")
+include(":domain")

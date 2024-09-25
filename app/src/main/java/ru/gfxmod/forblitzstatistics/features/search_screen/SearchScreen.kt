@@ -1,4 +1,4 @@
-package ru.gfxmod.forblitzstatistics.features.search_screen.presentation
+package ru.gfxmod.forblitzstatistics.features.search_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -36,11 +36,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import ru.gfxmod.forblitzstatistics.R
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraLarge
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenExtraSmall
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenMedium
-import ru.gfxmod.forblitzstatistics.app.ui.theme.dimenSmall
-import ru.gfxmod.forblitzstatistics.app.ui.theme.textLarge
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraLarge
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraSmall
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenMedium
+import ru.gfxmod.forblitzstatistics.ui.theme.dimenSmall
+import ru.gfxmod.forblitzstatistics.ui.theme.textLarge
 import ru.gfxmod.forblitzstatistics.common.NICKNAME_ALLOWED_SYMBOLS
 import ru.gfxmod.forblitzstatistics.common.NICKNAME_MAX_LENGTH
 

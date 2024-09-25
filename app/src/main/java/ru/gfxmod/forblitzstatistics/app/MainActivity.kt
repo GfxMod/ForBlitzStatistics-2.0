@@ -17,10 +17,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import ru.gfxmod.forblitzstatistics.app.ui.theme.ForBlitzStatisticsTheme
+import ru.gfxmod.forblitzstatistics.ui.theme.ForBlitzStatisticsTheme
 import ru.gfxmod.forblitzstatistics.common.TRANSITION_LENGTH
-import ru.gfxmod.forblitzstatistics.features.search_screen.presentation.SearchScreen
-import ru.gfxmod.forblitzstatistics.features.start_screen.presentation.StartScreen
+import ru.gfxmod.forblitzstatistics.features.search_screen.SearchScreen
+import ru.gfxmod.forblitzstatistics.features.start_screen.StartScreen
 
 class MainActivity : ComponentActivity() {
 
