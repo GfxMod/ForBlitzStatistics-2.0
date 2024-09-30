@@ -69,6 +69,9 @@ class MainActivity : ComponentActivity() {
                                         setStatusBarColor(
                                             color = color.compositeOver(MaterialTheme.colorScheme.surface)
                                         )
+                                        setNavigationBarColor(
+                                            color = color.compositeOver(MaterialTheme.colorScheme.surfaceVariant)
+                                        )
                                     }
                                 }
                             )

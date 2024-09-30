@@ -5,17 +5,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
 private val LightColorScheme = lightColorScheme(
     surface = backgroundTop,
     surfaceVariant = backgroundBottom,
     surfaceContainerLowest = transparentBlack,
+    surfaceContainerLow = transparentMediumBlack,
     surfaceContainer = transparentGrey,
+    surfaceContainerHigh = transparentMediumWhite,
     surfaceContainerHighest = transparentWhite,
 
     onSurface = transparentWhite,
-    onSurfaceVariant = Color.White,
+    onSurfaceVariant = transparentMediumWhite,
+
+    secondaryContainer = secondaryContainer,
+    onSecondaryContainer = onSecondaryContainer,
+
+    background = background,
+    onBackground = onBackground,
 
     primary = lightBlue,
 )
