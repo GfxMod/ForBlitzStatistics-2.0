@@ -1,6 +1,7 @@
 package ru.gfxmod.forblitzstatistics.features.search_screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,6 +63,7 @@ import ru.gfxmod.forblitzstatistics.ui.theme.textMedium
 
 @Composable
 fun SearchScreen(
+    navController: NavHostController,
     viewModel: SearchScreenViewModel = koinViewModel(),
     setStatusBarColor: @Composable (Color) -> Unit = {},
     setNavigationBarColor: @Composable (Color) -> Unit = {}
@@ -75,26 +78,26 @@ fun SearchScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        TopBar(
-            modifier = Modifier
-                .fillMaxWidth(),
-            onSearch = { search ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.loadSearchResults(search)
-                }
+        TopBar(modifier = Modifier.fillMaxWidth(), onSearch = { search ->
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.loadSearchResults(search)
             }
-        )
+        }, onBackClick = {
+            navController.popBackStack()
+        }, onClearClick = {
+            viewModel.clearSearchResults()
+        })
 
-        if (searchResults != null) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        horizontal = dimenSmall
-                    ),
-                verticalArrangement = Arrangement.spacedBy(dimenExtraSmall),
-                contentPadding = PaddingValues(vertical = dimenMedium)
-            ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    horizontal = dimenSmall
+                ),
+            verticalArrangement = Arrangement.spacedBy(dimenExtraSmall),
+            contentPadding = PaddingValues(vertical = dimenMedium)
+        ) {
+            if (searchResults != null) {
                 itemsIndexed(searchResults!!) { i, accountSearchModel ->
                     AccountSearchRow(
                         first = i == 0,
@@ -110,7 +113,9 @@ fun SearchScreen(
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
+    onBackClick: () -> Unit = {},
+    onClearClick: () -> Unit = {}
 ) {
     var text by remember { mutableStateOf("") }
 
@@ -129,16 +134,16 @@ fun TopBar(
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f)
+                .clickable(onClick = onBackClick)
                 .padding(dimenExtraSmall),
             painter = painterResource(id = R.drawable.rounded_arrow_back_24),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onBackground
         )
 
-        BasicTextField(
-            modifier = Modifier
-                .focusRequester(focusRequester)
-                .weight(1.0f),
+        BasicTextField(modifier = Modifier
+            .focusRequester(focusRequester)
+            .weight(1.0f),
             value = text,
             onValueChange = {
                 if (it.length <= NICKNAME_MAX_LENGTH) {
@@ -153,16 +158,13 @@ fun TopBar(
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurfaceVariant),
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
+                keyboardType = KeyboardType.Text, imeAction = ImeAction.Search
             ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    focusManager.clearFocus()
-                    keyboardController?.hide()
-                    onSearch(text)
-                }
-            ),
+            keyboardActions = KeyboardActions(onSearch = {
+                focusManager.clearFocus()
+                keyboardController?.hide()
+                onSearch(text)
+            }),
             decorationBox = { innerTextField ->
                 if (text.isEmpty()) {
                     Text(
@@ -173,18 +175,19 @@ fun TopBar(
                     )
                 }
                 innerTextField()
-            }
-        )
+            })
 
-        Icon(
-            modifier = Modifier
-                .fillMaxHeight()
-                .aspectRatio(1f)
-                .padding(dimenExtraSmall),
+        Icon(modifier = Modifier
+            .fillMaxHeight()
+            .aspectRatio(1f)
+            .clickable {
+                onClearClick()
+                text = ""
+            }
+            .padding(dimenExtraSmall),
             painter = painterResource(id = R.drawable.rounded_close_24),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground
-        )
+            tint = MaterialTheme.colorScheme.onBackground)
 
         LaunchedEffect(Unit) {
             focusRequester.requestFocus()
@@ -194,31 +197,22 @@ fun TopBar(
 
 @Composable
 fun AccountSearchRow(
-    accountSearchModel: AccountSearchModel,
-    first: Boolean = false,
-    last: Boolean = false
+    accountSearchModel: AccountSearchModel, first: Boolean = false, last: Boolean = false
 ) {
     Row(
         modifier = Modifier
             .height(dimenExtraLarge + dimenMedium)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
-                shape = if (!first && !last) {
+                color = MaterialTheme.colorScheme.secondaryContainer, shape = if (!first && !last) {
                     MaterialTheme.shapes.extraSmall
                 } else if (first) {
                     RoundedCornerShape(
-                        dimenLarge,
-                        dimenLarge,
-                        dimenExtraSmall,
-                        dimenExtraSmall
+                        dimenLarge, dimenLarge, dimenExtraSmall, dimenExtraSmall
                     )
                 } else {
                     RoundedCornerShape(
-                        dimenExtraSmall,
-                        dimenExtraSmall,
-                        dimenLarge,
-                        dimenLarge
+                        dimenExtraSmall, dimenExtraSmall, dimenLarge, dimenLarge
                     )
                 }
             )
@@ -241,8 +235,7 @@ fun AccountSearchRow(
         )
 
         Text(
-            modifier = Modifier
-                .wrapContentHeight(),
+            modifier = Modifier.wrapContentHeight(),
             text = accountSearchModel.nickname,
             color = MaterialTheme.colorScheme.onBackground,
             fontSize = textMedium,

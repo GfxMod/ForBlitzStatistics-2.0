@@ -26,4 +26,10 @@ class SearchScreenViewModel(
         }
     }
 
+    fun clearSearchResults() {
+        viewModelScope.launch {
+            _searchResults.value = null
+        }
+    }
+
 }
