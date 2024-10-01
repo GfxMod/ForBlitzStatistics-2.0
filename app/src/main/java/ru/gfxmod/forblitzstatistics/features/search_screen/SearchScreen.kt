@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -64,19 +63,13 @@ import ru.gfxmod.forblitzstatistics.ui.theme.textMedium
 @Composable
 fun SearchScreen(
     navController: NavHostController,
-    viewModel: SearchScreenViewModel = koinViewModel(),
-    setStatusBarColor: @Composable (Color) -> Unit = {},
-    setNavigationBarColor: @Composable (Color) -> Unit = {}
+    viewModel: SearchScreenViewModel = koinViewModel()
 ) {
     val searchResults by viewModel.searchResults.collectAsState()
-
-    setStatusBarColor(MaterialTheme.colorScheme.background)
-    setNavigationBarColor(MaterialTheme.colorScheme.background)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
     ) {
         TopBar(modifier = Modifier.fillMaxWidth(), onSearch = { search ->
             CoroutineScope(Dispatchers.IO).launch {
@@ -204,7 +197,7 @@ fun AccountSearchRow(
             .height(dimenExtraLarge + dimenMedium)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer, shape = if (!first && !last) {
+                color = MaterialTheme.colorScheme.surfaceContainer, shape = if (!first && !last) {
                     MaterialTheme.shapes.extraSmall
                 } else if (first) {
                     RoundedCornerShape(
@@ -225,7 +218,7 @@ fun AccountSearchRow(
                 .height(dimenLarge + dimenExtraSmall)
                 .aspectRatio(1f)
                 .background(
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
                     shape = RoundedCornerShape(dimenExtraLarge)
                 )
                 .padding(dimenExtraSmall),
