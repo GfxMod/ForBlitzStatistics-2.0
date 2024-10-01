@@ -1,6 +1,5 @@
 package ru.gfxmod.forblitzstatistics.features.start_screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -77,7 +76,6 @@ fun StartScreen(
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .clickable {
-                    Log.d("nowDebug", "applicationInfo = $applicationInfo")
                     navController.navigate("search")
                 }
         )

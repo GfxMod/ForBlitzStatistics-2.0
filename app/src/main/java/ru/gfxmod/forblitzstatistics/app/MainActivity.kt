@@ -64,10 +64,14 @@ class MainActivity : ComponentActivity() {
 
                         composable("search") {
                             SearchScreen(
+                                navController = navController,
                                 setStatusBarColor = { color ->
                                     rememberSystemUiController().apply {
                                         setStatusBarColor(
                                             color = color.compositeOver(MaterialTheme.colorScheme.surface)
+                                        )
+                                        setNavigationBarColor(
+                                            color = color.compositeOver(MaterialTheme.colorScheme.surfaceVariant)
                                         )
                                     }
                                 }
