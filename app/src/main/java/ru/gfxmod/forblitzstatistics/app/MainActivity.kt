@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.compositeOver
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -30,22 +28,17 @@ class MainActivity : ComponentActivity() {
             ForBlitzStatisticsTheme {
                 rememberSystemUiController().apply {
                     setStatusBarColor(
-                        color = MaterialTheme.colorScheme.surface
+                        color = MaterialTheme.colorScheme.background
                     )
                     setNavigationBarColor(
-                        color = MaterialTheme.colorScheme.surfaceVariant
+                        color = MaterialTheme.colorScheme.background
                     )
                 }
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.surface,
-                                    MaterialTheme.colorScheme.surfaceVariant,
-                                )
-                            )
+                            color = MaterialTheme.colorScheme.background
                         )
                 ) {
                     val navController = rememberNavController()
@@ -64,17 +57,7 @@ class MainActivity : ComponentActivity() {
 
                         composable("search") {
                             SearchScreen(
-                                navController = navController,
-                                setStatusBarColor = { color ->
-                                    rememberSystemUiController().apply {
-                                        setStatusBarColor(
-                                            color = color.compositeOver(MaterialTheme.colorScheme.surface)
-                                        )
-                                        setNavigationBarColor(
-                                            color = color.compositeOver(MaterialTheme.colorScheme.surfaceVariant)
-                                        )
-                                    }
-                                }
+                                navController = navController
                             )
                         }
                     }

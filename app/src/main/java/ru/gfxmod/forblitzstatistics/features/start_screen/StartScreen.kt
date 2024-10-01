@@ -1,6 +1,5 @@
 package ru.gfxmod.forblitzstatistics.features.start_screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -30,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import org.koin.androidx.compose.koinViewModel
 import ru.gfxmod.forblitzstatistics.R
 import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraLarge
 import ru.gfxmod.forblitzstatistics.ui.theme.dimenExtraSmall
@@ -37,12 +37,11 @@ import ru.gfxmod.forblitzstatistics.ui.theme.dimenLarge
 import ru.gfxmod.forblitzstatistics.ui.theme.dimenMedium
 import ru.gfxmod.forblitzstatistics.ui.theme.dimenSmall
 import ru.gfxmod.forblitzstatistics.ui.theme.textLarge
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun StartScreen(
-    viewModel: StartScreenViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
+    viewModel: StartScreenViewModel = koinViewModel(),
     navController: NavHostController
 ) {
     val applicationInfo by viewModel.applicationInfo.collectAsState()
@@ -57,12 +56,13 @@ fun StartScreen(
             .padding(dimenMedium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
+        Icon(
             modifier = Modifier
                 .size(dimenMedium * 16)
                 .padding(dimenLarge),
             imageVector = ImageVector.vectorResource(R.drawable.forblitzstatistics_logo),
-            contentDescription = stringResource(R.string.app_name)
+            contentDescription = stringResource(R.string.app_name),
+            tint = MaterialTheme.colorScheme.onBackground
         )
         Spacer(
             Modifier.height(dimenExtraLarge)
@@ -72,7 +72,7 @@ fun StartScreen(
                 .fillMaxWidth()
                 .height(dimenExtraLarge * 2)
                 .background(
-                    color = MaterialTheme.colorScheme.surfaceContainer,
+                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .clickable {
