@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -48,6 +50,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import ru.gfxmod.domain.account_clan.model.AccountClanModel
 import ru.gfxmod.domain.account_search.model.AccountSearchModel
 import ru.gfxmod.forblitzstatistics.R
 import ru.gfxmod.forblitzstatistics.common.NICKNAME_ALLOWED_SYMBOLS
@@ -73,8 +76,13 @@ fun SearchScreen(
     ) {
         TopBar(modifier = Modifier.fillMaxWidth(), onSearch = { search ->
             CoroutineScope(Dispatchers.IO).launch {
-                viewModel.loadSearchResults(search)
+                viewModel.searchResults.collect { searchResults ->
+                    if (!searchResults.isNullOrEmpty()) {
+                        viewModel.loadClans(searchResults.map { it.accountId })
+                    }
+                }
             }
+            viewModel.loadSearchResults(search)
         }, onBackClick = {
             navController.popBackStack()
         }, onClearClick = {
@@ -95,7 +103,8 @@ fun SearchScreen(
                     AccountSearchRow(
                         first = i == 0,
                         last = i == searchResults!!.size - 1,
-                        accountSearchModel = accountSearchModel
+                        accountSearchModel = accountSearchModel,
+                        accountClanModel = viewModel.clans.collectAsState().value?.get(accountSearchModel.accountId)
                     )
                 }
             }
@@ -190,7 +199,10 @@ fun TopBar(
 
 @Composable
 fun AccountSearchRow(
-    accountSearchModel: AccountSearchModel, first: Boolean = false, last: Boolean = false
+    accountSearchModel: AccountSearchModel,
+    accountClanModel: AccountClanModel? = null,
+    first: Boolean = false,
+    last: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -210,7 +222,6 @@ fun AccountSearchRow(
                 }
             )
             .padding(horizontal = dimenSmall + dimenExtraSmall),
-        horizontalArrangement = Arrangement.spacedBy(dimenMedium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -227,6 +238,8 @@ fun AccountSearchRow(
             tint = MaterialTheme.colorScheme.onBackground
         )
 
+        Spacer(Modifier.width(dimenMedium))
+
         Text(
             modifier = Modifier.wrapContentHeight(),
             text = accountSearchModel.nickname,
@@ -234,6 +247,18 @@ fun AccountSearchRow(
             fontSize = textMedium,
             fontWeight = FontWeight.Black
         )
+
+        accountClanModel?.clan?.clanTag?.let {
+            Spacer(Modifier.width(dimenExtraSmall))
+            Text(
+                modifier = Modifier.wrapContentHeight(),
+                text = "[$it]",
+                color = MaterialTheme.colorScheme.secondary,
+                fontSize = textMedium,
+                fontWeight = FontWeight.Black
+            )
+        }
+
     }
 
 }
