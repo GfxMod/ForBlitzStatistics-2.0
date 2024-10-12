@@ -2,15 +2,16 @@ package ru.gfxmod.data.account_clan.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ru.gfxmod.data.value_class.AccountIDDTO
 
 @Serializable
 data class AccountClanDTO(
-    @SerialName("data") val data: HashMap<Int, AccountClanElementDTO?>
+    @SerialName("data") val data: HashMap<AccountIDDTO, AccountClanElementDTO?>
 ) {
 
     @Serializable
     data class AccountClanElementDTO(
-        @SerialName("account_id") val accountId: Int,
+        @SerialName("account_id") val accountId: AccountIDDTO,
 
         @SerialName("joined_at") val joinedAt: Int,
 

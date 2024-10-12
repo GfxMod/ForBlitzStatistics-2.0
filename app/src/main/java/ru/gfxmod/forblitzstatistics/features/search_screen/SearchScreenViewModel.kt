@@ -12,6 +12,7 @@ import ru.gfxmod.domain.account_clan.repository.AccountClanRepository
 import ru.gfxmod.domain.account_search.model.AccountSearchModel
 import ru.gfxmod.domain.account_search.repository.AccountSearchRepository
 import ru.gfxmod.domain.applicationinfo.repository.ApplicationInfoRepository
+import ru.gfxmod.domain.value_class.AccountID
 
 class SearchScreenViewModel(
     private val applicationInfoRepository: ApplicationInfoRepository,
@@ -22,8 +23,8 @@ class SearchScreenViewModel(
     private val _searchResults = MutableStateFlow<List<AccountSearchModel>?>(null)
     val searchResults: StateFlow<List<AccountSearchModel>?> get() = _searchResults
 
-    private val _clans = MutableStateFlow<Map<Int, AccountClanModel>?>(null)
-    val clans: StateFlow<Map<Int, AccountClanModel>?> get() = _clans
+    private val _clans = MutableStateFlow<Map<AccountID, AccountClanModel>?>(null)
+    val clans: StateFlow<Map<AccountID, AccountClanModel>?> get() = _clans
 
     fun loadSearchResults(search: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -40,7 +41,7 @@ class SearchScreenViewModel(
         }
     }
 
-    fun loadClans(accountIds: Collection<Int>) {
+    fun loadClans(accountIds: Collection<AccountID>) {
         CoroutineScope(Dispatchers.IO).launch {
             _clans.value = accountClanRepository.getAccountClan(
                 accountIds = accountIds,

@@ -1,7 +1,9 @@
 package ru.gfxmod.domain.account_clan.model
 
+import ru.gfxmod.domain.value_class.AccountID
+
 data class AccountClanModel(
-    val accountId: Int,
+    val accountId: AccountID,
     val accountName: String,
     val clan: Clan
 ) {
