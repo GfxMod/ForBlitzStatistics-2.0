@@ -266,7 +266,7 @@ fun ForBlitzStatisticsTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme, typography = ForBlitzStatisticsTypography, content = content
+        colorScheme = darkScheme, typography = ForBlitzStatisticsTypography, content = content
     )
 }
 

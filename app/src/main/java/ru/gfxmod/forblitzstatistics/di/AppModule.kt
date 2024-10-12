@@ -7,5 +7,5 @@ import ru.gfxmod.forblitzstatistics.features.start_screen.StartScreenViewModel
 
 val appModule = module {
     viewModel { StartScreenViewModel(get()) }
-    viewModel { SearchScreenViewModel(get(), get()) }
+    viewModel { SearchScreenViewModel(get(), get(), get()) }
 }
