@@ -7,8 +7,8 @@ import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
 import ru.gfxmod.data.account_clan.dto.AccountClanDTO
-import ru.gfxmod.data.account_clan.mapper.toAccountID
 import ru.gfxmod.data.account_clan.mapper.toModel
+import ru.gfxmod.data.value_class.toAccountID
 import ru.gfxmod.domain.account_clan.model.AccountClanModel
 import ru.gfxmod.domain.account_clan.repository.AccountClanRepository
 import ru.gfxmod.domain.value_class.AccountID
