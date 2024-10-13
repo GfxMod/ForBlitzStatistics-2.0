@@ -2,6 +2,7 @@ package ru.gfxmod.data.account_search.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ru.gfxmod.data.value_class.AccountIDDTO
 
 @Serializable
 data class AccountSearchDTO(
@@ -16,7 +17,7 @@ data class AccountSearchDTO(
         @SerialName("nickname")
         val nickname: String,
         @SerialName("account_id")
-        val accountId: Int
+        val accountId: AccountIDDTO
     )
 
 }
