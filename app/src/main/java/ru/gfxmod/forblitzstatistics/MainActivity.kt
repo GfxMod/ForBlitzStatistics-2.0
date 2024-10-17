@@ -1,4 +1,4 @@
-package ru.gfxmod.forblitzstatistics.app
+package ru.gfxmod.forblitzstatistics
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
